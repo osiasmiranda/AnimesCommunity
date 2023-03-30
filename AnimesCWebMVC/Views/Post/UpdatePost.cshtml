@@ -1,0 +1,75 @@
+﻿@model AnimesCWebMVC.Models.PostViewModel
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title"></h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Editar publicação</h4>
+                            <div class="tab-content">
+                                <div class="tab-pane show active" id="custom-styles-preview">
+                                    <form asp-action="UpdatePost" method="post" class="needs-validation" novalidate>
+                                        <div class="mb-3">
+                                            <input type="hidden" asp-for="Id" />
+                                            <label class="form-label" for="validationCustom01">Título</label>
+                                            <input type="text" asp-for="Title" class="form-control" id="validationCustom01" placeholder="Título do post" required />
+                                            <div class="valid-feedback">
+                                                Preenchimento obrigatório!
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="validationCustom02">Descrição</label>
+                                            <textarea asp-for="Description" cols="30" type="text" rows="6" class="form-control" id="validationCustom02" placeholder="Escreva algo...." required></textarea>
+                                            <div class="valid-feedback">
+                                                Preenchimento obrigatório!
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="validationCustomUsername">Upload</label>
+                                            <div class="row">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="inputGroupPrepend"></span>
+                                                    <input type="hidden" asp-for="ImageUrl" />
+                                                    <input type="file" asp-for="ImageUrl" value="@Model.ImageUrl" class="form-control" id="file" aria-describedby="inputGroupPrepend" />
+                                                </div>
+                                                <div>
+                                                    @if (string.IsNullOrEmpty(Model.ImageUrl))
+                                                    {
+                                                        <img src="~/image/No_Image_Available.jpg" class="img-thumbnail" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@Model.ImageUrl" class="img-thumbnail" />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary" asp-action="Index" asp-controller="Post">Retornar</button>
+                                        <button class="btn btn-success" type="submit" asp-route-id="@Model.Id">Enviar</button>
+                                    </form>
+                                </div> <!-- end preview-->
+                            </div> <!-- end tab-content-->
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+            </div>
+        </div>
+    </div>
+</div>
+

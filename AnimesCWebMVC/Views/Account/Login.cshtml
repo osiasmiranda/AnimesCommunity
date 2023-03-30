@@ -1,0 +1,66 @@
+﻿@model UserViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="account-pages ">
+    <div class="row justify-content-center">
+        <div class="col-xxl-4 col-lg-5">
+            <div class="card">
+                <!-- Logo -->
+                <div class="card-header py-4 text-center bg-black">
+                    <a href="index.html">
+                        <span><img src="~/image/animes-removebg.png" alt="logo" height="141" width=""></span>
+                    </a>
+                </div>
+                <div class="card-body p-4">
+                    <div class="text-center w-75 m-auto">
+                        <p class="text-muted mb-4">Entre com seu email e senha para acessar admin painel.</p>
+                    </div>
+                    <form asp-controller="Account" asp-action="Login" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" type="email" placeholder="Digite seu email">
+                            <span class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <a id="forgot-password" asp-page="" class="text-muted float-end"><small>Esqueceu sua senha?</small></a>
+                            <label  class="form-label">Senha</label>
+                            <div>
+                                <input asp-for="Password" type="password" class="form-control"  placeholder="Digite sua senha">
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <!--<input type="checkbox" class="form-check-input" id="checkbox-signin" checked>
+                                 <label class="form-check-label" for="checkbox-signin">Relembrar-me</label>
+
+                                <input class="form-check-input" asp-for="RememberMe" />
+                                <label asp-for="RememberMe" class="form-label">
+                                    Lembrar senha
+                                </label>-->
+                            </div>
+                        </div>
+
+                        <div class="mb-3 mb-0 text-center">
+                            <button type="submit" class="w-100 btn btn-lg btn-primary"> Entrar </button>
+                        </div>
+                    </form>
+                </div> <!-- end card-body -->
+            </div>
+            <!-- end card -->
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <p class="text-muted">Ainda não tem uma conta? <a asp-page="" asp-route-returnUrl=""><b>Registrar</b></a></p>
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+</div>
