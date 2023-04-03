@@ -43,7 +43,7 @@ namespace AnimesCWebMVC.Services
         }
 
 
-        public async  Task<ProfileViewModel> GetProfileByID(int id, string token)
+        public async  Task<ProfileViewModel> GetProfileByID(string id, string token)
         {
             var client = _clientFactory.CreateClient("AnimesApi");
             PutTokenInHeaderAuthorization(token, client);
@@ -91,7 +91,7 @@ namespace AnimesCWebMVC.Services
         }
 
 
-        public async  Task<bool> UpdateProfile(int id, ProfileViewModel profileVM, string token)
+        public async  Task<bool> UpdateProfile(string id, ProfileViewModel profileVM, string token)
         {
             var client = _clientFactory.CreateClient("AnimesApi");
             PutTokenInHeaderAuthorization(token, client);
@@ -112,7 +112,7 @@ namespace AnimesCWebMVC.Services
 
 
 
-        public async  Task<bool> DeleteProfile(int id, string token)
+        public async  Task<bool> DeleteProfile(string id, string token)
         {
             var client = _clientFactory.CreateClient("AnimesApi");
             PutTokenInHeaderAuthorization(token, client);

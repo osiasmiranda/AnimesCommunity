@@ -8,7 +8,7 @@ namespace AnimesCWebMVC.Services;
 
 public class PostHttpService : IPostHttpService
 {
-    private const string apiEndpoint = "api/Posts/";
+    private const string apiEndpoint = "api/Posts";
     private readonly JsonSerializerOptions _options;
     private readonly IHttpClientFactory _clientFactory;
     private PostViewModel? postVM;
