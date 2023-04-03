@@ -8,7 +8,7 @@ namespace AnimesCWebMVC.Services
 {
     public class ProfileHttpService : IProfileHttpService
     {
-        private const string apiEndpoint = "api/Profiles/";
+        private const string apiEndpoint = "api/Profiles";
         private readonly JsonSerializerOptions _options;
         private readonly IHttpClientFactory _clientFactory;
         private ProfileViewModel? profileVM;
@@ -85,7 +85,7 @@ namespace AnimesCWebMVC.Services
                 {
                     return null;
                 }
-                return profileVM;
+                return profileVM!;
             }
 
         }

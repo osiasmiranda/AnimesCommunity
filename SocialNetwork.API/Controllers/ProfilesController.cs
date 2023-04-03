@@ -2,18 +2,20 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Application.DTOs;
 using SocialNetwork.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using SocialNetwork.Domain.Entites;
 
 namespace SocialNetwork.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ProfilesController : ControllerBase
     {
         private readonly IProfileService _profileService;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<Profile> _userManager;
 
-        public ProfilesController(IProfileService profileService, UserManager<IdentityUser> userManager)
+        public ProfilesController(IProfileService profileService, UserManager<Profile> userManager)
         {
             _profileService = profileService;
             _userManager = userManager;
