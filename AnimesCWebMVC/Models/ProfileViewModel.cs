@@ -6,6 +6,7 @@ namespace AnimesCWebMVC.Models
     public class ProfileViewModel
 
     {
+        public string? Id { get; set; }
 
         [StringLength(20, MinimumLength = 3)]
         

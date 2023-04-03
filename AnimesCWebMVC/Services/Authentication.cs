@@ -35,10 +35,10 @@ namespace AnimesCWebMVC.Services
 
                 }else
                 {
-                    return null;
+                    return null!;
                 }
             }
-            return tokenUser;
+            return tokenUser!;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace SocialNetwork.Application.DTOs;
 public class ProfileDTO 
 {
 
-   
+   public string? Id { get; set; }
     public string? FirstName { get;  set; }
 
     [StringLength(20, MinimumLength = 3)]

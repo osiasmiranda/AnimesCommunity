@@ -40,7 +40,7 @@ namespace SocialNetwork.API.Controllers
 
         // PUT: api/Profiles/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfile(int id, ProfileDTO profileDTO)
+        public async Task<IActionResult> PutProfile(string id, ProfileDTO profileDTO)
         {
             if(id != profileDTO.Id)
             {
