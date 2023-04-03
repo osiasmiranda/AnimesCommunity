@@ -1,28 +1,29 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SocialNetwork.Application.Interfaces;
 using SocialNetwork.Application.Mapping;
 using SocialNetwork.Application.Services;
+using SocialNetwork.Domain.Entites;
 using SocialNetwork.Domain.Interfaces;
 using SocialNetwork.Infrastructure.Context;
 using SocialNetwork.Infrastructure.Repositories;
 using System.Text;
 using System.Text.Json.Serialization;
+using Profile = SocialNetwork.Domain.Entites.Profile;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.UseIISIntegration();
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("dbinfnetazure.database.windows.net")));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+builder.Services.AddIdentity<Profile, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+   
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
@@ -117,6 +118,7 @@ app.UseCors(builder =>
            .AllowAnyOrigin()
            .AllowAnyMethod();
 });
+
 
 app.MapControllers();
 

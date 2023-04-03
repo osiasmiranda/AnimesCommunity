@@ -4,7 +4,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:56218",
-      "sslPort": 44356
+      "sslPort": 44367
     }
   },
   "profiles": {
@@ -14,7 +14,8 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5066",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "URL_BASE_API": "https://localhost:7218"
       }
     },
     "https": {
@@ -30,8 +31,18 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "URL_BASE_API": "https://localhost:7218"
+      }
+    },
+    "AnimesCWebMVC": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7153;http://localhost:5066",
+      "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+
     }
-  }
-}
+  
+ }

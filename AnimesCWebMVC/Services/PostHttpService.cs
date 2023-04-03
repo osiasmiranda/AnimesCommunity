@@ -1,4 +1,6 @@
 ﻿using AnimesCWebMVC.Models;
+using NuGet.Common;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
@@ -18,10 +20,11 @@ public class PostHttpService : IPostHttpService
         _clientFactory = httpClientFactory;
     }
 
-    public async Task<IEnumerable<PostViewModel>> GetPosts()
+    public async Task<IEnumerable<PostViewModel>> GetPosts(string token)
     {
         //meu servico que busca no serviceUri
-        var client = _clientFactory.CreateClient("AnimesApi"); 
+        var client = _clientFactory.CreateClient("AnimesApi");
+        PutTokenInHeaderAuthorization(token, client);
 
         using (var response = await client.GetAsync(apiEndpoint))
         {
@@ -34,15 +37,15 @@ public class PostHttpService : IPostHttpService
             {
                 return null;
             }
-            return postsVM;
+            return postsVM!;
 
         }
     }
 
-    public async Task<PostViewModel> GetPostByID(int id)
+    public async Task<PostViewModel> GetPostByID(int id, string token)
     {
         var client = _clientFactory.CreateClient("AnimesApi");
-
+        PutTokenInHeaderAuthorization(token, client);
         using (var response = await client.GetAsync(apiEndpoint + id))
         {
             if (response.IsSuccessStatusCode)
@@ -60,9 +63,10 @@ public class PostHttpService : IPostHttpService
         }
     }
 
-    public async Task<PostViewModel> CreatePost(PostViewModel postVM)
+    public async Task<PostViewModel> CreatePost(PostViewModel postVM,string token)
     {
         var client = _clientFactory.CreateClient("AnimesApi");
+        PutTokenInHeaderAuthorization(token, client);
         var post = JsonSerializer.Serialize(postVM);
         StringContent content = new StringContent(post, Encoding.UTF8, "application/json");
 
@@ -80,9 +84,10 @@ public class PostHttpService : IPostHttpService
             return postVM;
         }
     }
-    public async Task<bool> UpdatePost(int id, PostViewModel postVM)
+    public async Task<bool> UpdatePost(int id, PostViewModel postVM, string token)
     {
         var client = _clientFactory.CreateClient("AnimesApi");
+        PutTokenInHeaderAuthorization(token, client);
 
         using (var response = await client.PutAsJsonAsync(apiEndpoint + id, postVM))
         {
@@ -97,9 +102,10 @@ public class PostHttpService : IPostHttpService
         }
     }
 
-    public async Task<bool> DeletePost(int id)
+    public async Task<bool> DeletePost(int id, string token)
     {
         var client = _clientFactory.CreateClient("AnimesApi");
+        PutTokenInHeaderAuthorization(token, client);
 
         using (var response = await client.DeleteAsync(apiEndpoint + id))
         {
@@ -110,4 +116,11 @@ public class PostHttpService : IPostHttpService
         }
         return false;
     }
+
+    private static void PutTokenInHeaderAuthorization(string token, HttpClient client)
+    {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+    }
+
 }

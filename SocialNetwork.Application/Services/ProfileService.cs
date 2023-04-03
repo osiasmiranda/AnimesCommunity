@@ -23,7 +23,7 @@ public class ProfileService : IProfileService
 
     }
 
-    public async Task<ProfileDTO> GetById(int? id)
+    public async Task<ProfileDTO> GetById(string? id)
     {
         var profileEntity = await _profileRepository.GetByIdAsync(id);
         return _mapper.Map<ProfileDTO>(profileEntity);
@@ -40,7 +40,7 @@ public class ProfileService : IProfileService
         var profilesEntity = _mapper.Map<Domain.Entites.Profile>(profileDto);
         await _profileRepository.UpdateAsync(profilesEntity);
     }
-    public async Task Remove(int? id)
+    public async Task Remove(string? id)
     {
         var profileEntity = _profileRepository.GetByIdAsync(id).Result;
         await _profileRepository.RemoveAsync(profileEntity);

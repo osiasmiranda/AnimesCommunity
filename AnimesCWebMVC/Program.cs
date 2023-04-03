@@ -1,4 +1,5 @@
 using AnimesCWebMVC.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,23 +11,23 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient("AnimesApi", c => 
 {
-   // c.BaseAddress = new Uri(builder.Configuration["ServiceUri:AnimesApi"]);
-    c.BaseAddress = new Uri("https://localhost:44367/");
-    //c.BaseAddress = new Uri("https://localhost:7218/");
+    //c.BaseAddress = new Uri("https://localhost:44367/");
+    c.BaseAddress = new Uri("https://localhost:7218/");
 });
 
 builder.Services.AddHttpClient("AuthenticatedApi", c =>
 {
-    //c.BaseAddress = new Uri("https://localhost:7218/");
-    c.BaseAddress = new Uri("https://localhost:44367/");
-    //c.BaseAddress = new Uri(builder.Configuration["ServiceUri:AuthenticatedApi"]);
+    c.BaseAddress = new Uri("https://localhost:7218/");
+    //c.BaseAddress = new Uri("https://localhost:44367/");
     c.DefaultRequestHeaders.Accept.Clear();
     c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
 
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
 
 builder.Services.AddScoped<IPostHttpService, PostHttpService>();
+builder.Services.AddScoped<IProfileHttpService, ProfileHttpService>();
 builder.Services.AddScoped<IAuthentication, Authentication>();
 
 

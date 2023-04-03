@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SocialNetwork.Application.DTOs;
+using SocialNetwork.Application.Interfaces;
 using SocialNetwork.Domain.Entites;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,56 +12,63 @@ using System.Text;
 namespace SocialNetwork.API.Controllers;
 
 
-[Produces("application/json")]
 [Route("api/[controller]")]
 [ApiController]
+
 public class AuthController : ControllerBase
 {
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<Profile> _userManager;
+    private readonly SignInManager<Profile> _signInManager;
     private readonly IConfiguration _configuration;
 
-    public AuthController(UserManager<IdentityUser> userManager,
-        SignInManager<IdentityUser> signInManager, IConfiguration Configuration)
+    public AuthController(UserManager<Profile> userManager,
+        SignInManager<Profile> signInManager, IConfiguration Configuration)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _configuration = Configuration;
     }
-
-
     [HttpGet]
+
     public ActionResult<string> Get()
     {
         return "AuthController::Acessado em:" + DateTime.Now.ToString();
 
     }
-    
     [HttpPost("Register")]
-    public async Task<ActionResult> RegisterUser([FromBody] UsuarioDTO model)
+    public async Task<ActionResult> RegisterUser( UsuarioDTO model)
     {
-        var user = new IdentityUser
+        var user = new Profile
         {
-            UserName = model.Email,
+            UserName = model.UserName,
             Email = model.Email,
+            Password = model.Password,
+            Location = model.Location,
             EmailConfirmed = true,
-
-
+            
         };
-
-        var result = await _userManager.CreateAsync(user, model.Password);
+        var result = await _userManager.CreateAsync(user, user.Password);
 
         if (!result.Succeeded)
         {
             return BadRequest(result.Errors);
         }
+
         await _signInManager.SignInAsync(user, false);
-        return Ok(GenerateToken(model));
+
+        return Ok(new { Message = "Registro realizado com sucesso" });
+        
     }
-    
+
+    [AllowAnonymous]
     [HttpPost("Login")]
-    public async Task<ActionResult> Login(UsuarioDTO userInfo)
+    public async Task<ActionResult> Login(Login userInfo)
     {
+        Login credenciais = new Login();
+        credenciais.Email = userInfo.Email;
+        credenciais.Password = userInfo.Password;
+
+        Profile profile;
 
         //verifica as credenciais do usuário e retorna o valor
         var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password,
@@ -77,7 +85,7 @@ public class AuthController : ControllerBase
         }
     }
 
-    private UserToken GenerateToken(UsuarioDTO userInfo)
+    private UserToken GenerateToken(Login userInfo)
     {
         //define declaracoes do usuario
         var claims = new[]

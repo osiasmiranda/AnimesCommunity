@@ -45,17 +45,17 @@
                                             <div class="row">
                                                 <div class="input-group">
                                                     <span class="input-group-text" id="inputGroupPrepend"></span>
-                                                    <input type="hidden" asp-for="ImageUrl" />
-                                                    <input type="file" asp-for="ImageUrl" value="@Model.ImageUrl" class="form-control" id="file" aria-describedby="inputGroupPrepend" />
+                                                    <input type="hidden" asp-for="PostImageUrl" />
+                                                    <input type="file" asp-for="PostImageUrl" value="@Model.PostImageUrl" class="form-control" id="file" aria-describedby="inputGroupPrepend" />
                                                 </div>
                                                 <div>
-                                                    @if (string.IsNullOrEmpty(Model.ImageUrl))
+                                                    @if (string.IsNullOrEmpty(Model.PostImageUrl))
                                                     {
                                                         <img src="~/image/No_Image_Available.jpg" class="img-thumbnail" />
                                                     }
                                                     else
                                                     {
-                                                        <img src="@Model.ImageUrl" class="img-thumbnail" />
+                                                        <img src="@Model.PostImageUrl" class="img-thumbnail" />
                                                     }
                                                 </div>
                                             </div>

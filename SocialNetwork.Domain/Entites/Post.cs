@@ -1,24 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace SocialNetwork.Domain.Entites;
 
-public sealed class Post : Entity
+public class Post
 {
-
-    public void Update(int profileId)
-    {
-        ProfileId = profileId;
-    }
+    [Key]
+    public int Id { get; set; }
     public string? Title { get; set; }
     public string? Description { get;  set; }
-    public string? ImageUrl { get;  set; }
-    public DateTime CreatedAt { get;  set; }
-
-    [ForeignKey("Profile")]
-    public int ProfileId { get; set; }
+    public string? PostImageUrl { get;  set; }
+    public DateTime CreatedAt { get;  set; } = DateTime.Now;
+    public DateTime ModifiedDate { get; set; } = DateTime.Now;
+    public string AuthorId { get; set; }
+    [ForeignKey("AuthorId")]
     [JsonIgnore]
-    public Profile? Profile { get; set; }
+    public Profile? Author { get; set; }
 
 
 }

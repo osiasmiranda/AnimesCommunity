@@ -22,6 +22,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<ActionResult> Login(UserViewModel model) 
     { 
         if (!ModelState.IsValid)
@@ -38,12 +39,20 @@ public class AccountController : Controller
             return View(model);
         }
 
-        Response.Cookies.Append("X-Access-Token", result.Token, new CookieOptions()
+        //Armazena o token no cookie
+        //Response.Cookies.Append("X-Access-Token", result.Token!, new CookieOptions()
+        //{
+        //     Secure = true,
+        //     HttpOnly = true,
+        //     SameSite = SameSiteMode.Strict
+        // }) ;
+        var cookieOptions = new CookieOptions()
         {
             Secure = true,
             HttpOnly = true,
             SameSite = SameSiteMode.Strict
-        }) ;
+        };
+        Response.Cookies.Append("X-Access-Token", result.Token!, cookieOptions);
         return Redirect("/");
     }
 }

@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Application.DTOs;
 using SocialNetwork.Application.Interfaces;
-using SocialNetwork.Domain.Entites;
-using SocialNetwork.Infrastructure.Context;
 
 namespace SocialNetwork.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProfilesController : ControllerBase
     {
         private readonly IProfileService _profileService;
-        public ProfilesController(IProfileService profileService)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public ProfilesController(IProfileService profileService, UserManager<IdentityUser> userManager)
         {
             _profileService = profileService;
+            _userManager = userManager;
         }
         // GET: api/Profiles
         [HttpGet]
@@ -34,7 +28,7 @@ namespace SocialNetwork.API.Controllers
 
         // GET: api/Profiles/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProfileDTO>> GetProfile(int id)
+        public async Task<ActionResult<ProfileDTO>> GetProfile(string id)
         {
             var profile =await _profileService.GetById(id);
             if(profile == null)
@@ -61,18 +55,33 @@ namespace SocialNetwork.API.Controllers
         [HttpPost]
         public async Task<ActionResult> PostProfile(ProfileDTO profileDTO)
         {
-            if(!ModelState.IsValid)
+            var accountId = _userManager.GetUserId;
+
+            var profile = new ProfileDTO
+            {
+               AccountId = accountId.ToString(),
+               FirstName = profileDTO.FirstName,
+               LastName = profileDTO.LastName,
+               BirthOfDay = profileDTO.BirthOfDay,
+               Bio = profileDTO.Bio,
+               Location = profileDTO.Location,
+               ProfileImageUrl = profileDTO.ProfileImageUrl,
+            };
+
+
+
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            await _profileService.Add(profileDTO);
+            await _profileService.Add(profile);
             return CreatedAtAction("GetProfile", new { id = profileDTO.Id }, profileDTO);
 
         }
         // DELETE: api/Profiles/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ProfileDTO>> Delete(int id)
+        public async Task<ActionResult<ProfileDTO>> Delete(string id)
         {
             var profileDTO = await _profileService.GetById(id);
             if (profileDTO == null)

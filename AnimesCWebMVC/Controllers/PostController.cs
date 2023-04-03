@@ -1,6 +1,7 @@
 ﻿using AnimesCWebMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Common;
 using IPostHttpService = AnimesCWebMVC.Services.IPostHttpService;
 
 namespace AnimesCWebMVC.Controllers;
@@ -8,6 +9,7 @@ namespace AnimesCWebMVC.Controllers;
 public class PostController : Controller
 {
     private readonly IPostHttpService _postHttpService;
+    private string token = string.Empty;
 
     public PostController(IPostHttpService postService)
     {
@@ -16,7 +18,7 @@ public class PostController : Controller
 
     public async Task<ActionResult<IEnumerable<PostViewModel>>> Index()
     {
-        var result = await _postHttpService.GetPosts();
+        var result = await _postHttpService.GetPosts(ObterTokenJwt());
         if (result == null)
         {
             return View("Error");
@@ -35,7 +37,7 @@ public class PostController : Controller
     {
         if (ModelState.IsValid)
         {
-            var result = await _postHttpService.CreatePost(postVM);
+            var result = await _postHttpService.CreatePost(postVM, ObterTokenJwt());
             if (result != null)
             {
                 return RedirectToAction(nameof(Index));
@@ -48,7 +50,7 @@ public class PostController : Controller
     [HttpGet]
     public async Task<IActionResult> UpdatePost(int id)
     {
-        var result = await _postHttpService.GetPostByID(id);
+        var result = await _postHttpService.GetPostByID(id, ObterTokenJwt());
         if (result is null)
         {
             return View("Error");
@@ -61,7 +63,7 @@ public class PostController : Controller
     {
         if (ModelState.IsValid)
         {
-            var result = await _postHttpService.UpdatePost(id, postVM);
+            var result = await _postHttpService.UpdatePost(id, postVM, ObterTokenJwt());
             if (result)
             {
                 return RedirectToAction(nameof(Index));
@@ -74,7 +76,7 @@ public class PostController : Controller
     [HttpGet]
     public async Task<IActionResult> DeletePost(int id)
     {
-        var result = await _postHttpService.GetPostByID(id);
+        var result = await _postHttpService.GetPostByID(id, ObterTokenJwt());
         if (result is null)
             return View("Error");
 
@@ -85,11 +87,21 @@ public class PostController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var result = await _postHttpService.DeletePost(id);
+        var result = await _postHttpService.DeletePost(id, ObterTokenJwt());
 
         if (result)
             return RedirectToAction(nameof(Index));
 
         return View("Error");
     }
+
+    private string ObterTokenJwt()
+    {
+        if (HttpContext.Request.Cookies.ContainsKey("X-Access-Token"))
+        {
+            token = HttpContext.Request.Cookies["X-Access-Token"].ToString();
+        }
+        return token;
+    }
+
 }

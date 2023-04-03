@@ -16,9 +16,9 @@ using SocialNetwork.Infrastructure.Context;
 
 namespace SocialNetwork.API.Controllers;
 
-[Authorize]
 [Route("api/[controller]")]
 [ApiController]
+//[Authorize]
 public class PostsController : ControllerBase
 {
     private readonly IPostService _postService;
@@ -41,6 +41,7 @@ public class PostsController : ControllerBase
     public async Task<ActionResult<Post>> GetPost(int id)
     {
         var post = await _postService.GetById(id);
+
         if (post == null)
         {
             return NotFound();

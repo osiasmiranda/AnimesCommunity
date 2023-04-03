@@ -22,6 +22,7 @@ namespace AnimesCWebMVC.Services
         public async Task<TokenViewModel> AuthenticationUser(UserViewModel userVM)
         {
             var client = _httpClientFactory.CreateClient("AuthenticatedApi");
+
             var usuario = JsonSerializer.Serialize(userVM);
             StringContent content = new StringContent(usuario,Encoding.UTF8,"application/json");
 
