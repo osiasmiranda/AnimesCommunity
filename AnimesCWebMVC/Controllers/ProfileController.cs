@@ -15,11 +15,9 @@ namespace AnimesCWebMVC.Controllers
         {
             _profileHttpService = profileHttpService;
         }
-
-        public async Task<ActionResult<ProfileViewModel>> Index()
+        [HttpGet]
+        public async Task<ActionResult> Index()
         {
-            //extratir o token do cookie
-
             var result = await _profileHttpService.GetProfiles(ObterTokenJwt());
 
             if (result is null)

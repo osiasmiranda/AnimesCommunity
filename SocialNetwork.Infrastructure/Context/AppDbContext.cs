@@ -21,7 +21,7 @@ public class AppDbContext : IdentityDbContext
         public AppDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseSqlServer("Data Source=MIRANDA\\SQLEXPRESS;Initial Catalog=BancoDados_RedeSocial;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            optionsBuilder.UseSqlServer("Server=MIRANDA\\SQLEXPRESS;Database=BancoDados_RedeSocial;TrustServerCertificate=True;MultipleActiveResultSets=True;Trusted_Connection=True");
             //optionsBuilder.UseSqlServer("Server=tcp:dbinfnetazure.database.windows.net,1433;Initial Catalog=DbSocialNetworkInfnet;Persist Security Info=False;User ID=AdminServer;Password=S3nh@infnet;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             return new AppDbContext(optionsBuilder.Options);
         }

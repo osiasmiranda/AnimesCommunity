@@ -7,9 +7,9 @@ using SocialNetwork.Domain.Entites;
 
 namespace SocialNetwork.API.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
     public class ProfilesController : ControllerBase
     {
         private readonly IProfileService _profileService;

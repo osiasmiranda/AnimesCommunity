@@ -11,99 +11,99 @@
 
             @foreach (var item in Model)
             {
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <img src="" class="rounded-circle avatar-lg img-thumbnail"
-                                         alt="profile-image">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <img src="" class="rounded-circle avatar-lg img-thumbnail"
+                                     alt="profile-image">
 
-                                    <h4 class="mb-0 mt-2">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName) </h4>
-                                    <div class="text-start mt-2">
-                                        <p class="text-muted font-13 mb-3">
-                                            @Html.DisplayFor(modelItem => item.Bio)
-                                        </p>
+                                <h4 class="mb-0 mt-2">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName) </h4>
+                                <div class="text-start mt-2">
+                                    <p class="text-muted font-13 mb-3">
+                                        @Html.DisplayFor(modelItem => item.Bio)
+                                    </p>
 
-                                        <p class="text-muted mb-2 font-13">
-                                            <strong>Data Nascimento :</strong><span class="ms-2">
-                                                <!--@Html.DisplayFor(modelItem => item.BirthOfDay)-->
-                                            </span>
-                                        </p>
+                                    <p class="text-muted mb-2 font-13">
+                                        <strong>Data Nascimento :</strong><span class="ms-2">
+                                            <!--@Html.DisplayFor(modelItem => item.BirthOfDay)-->
+                                        </span>
+                                    </p>
 
-                                        <p class="text-muted mb-1 font-13"><strong>Location :</strong> <span class="ms-2">@Html.DisplayFor(modelItem => item.Location)</span></p>
-                                    </div>
-                                </div> <!-- end card-body -->
-                            </div> <!-- end card -->
+                                    <p class="text-muted mb-1 font-13"><strong>Location :</strong> <span class="ms-2">@Html.DisplayFor(modelItem => item.Location)</span></p>
+                                </div>
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
 
-                        </div> <!-- end col-->
+                    </div> <!-- end col-->
 
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card">
-                                <div class="card-body">
-                                    <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                                        <li class="nav-item">
-                                            <a data-bs-toggle="tab" aria-expanded="true" class="nav-link rounded-0 active">
-                                                Settings
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div>
-                                            <form>
-                                                <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Informação Pessoal</h5>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label for="firstname" class="form-label">Nome</label>
-                                                            <input type="text" class="form-control" placeholder="Digite seu primeiro nome">
-                                                        </div>
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                                    <li class="nav-item">
+                                        <a data-bs-toggle="tab" aria-expanded="true" class="nav-link rounded-0 active">
+                                            Settings
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div>
+                                        <form>
+                                            <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Informação Pessoal</h5>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="firstname" class="form-label">Nome</label>
+                                                        <input type="text" class="form-control" placeholder="Digite seu primeiro nome">
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label for="lastname" class="form-label">Sobrenome</label>
-                                                            <input type="text" class="form-control" placeholder="Digite seu sobrenome">
-                                                        </div>
-                                                    </div> <!-- end col -->
-                                                </div> <!-- end row -->
-
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="mb-3">
-                                                            <label for="userbio" class="form-label">Bio :</label>
-                                                            <textarea class="form-control" id="userbio" rows="4" placeholder="Escreva algo..."></textarea>
-                                                        </div>
-                                                    </div> <!-- end col -->
-                                                </div> <!-- end row -->
-
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label for="useremail" class="form-label">Email:</label>
-                                                            <input type="email" class="form-control" placeholder="Enter email">
-                                                            <!-- <span class="form-text text-muted"><small>If you want to change email please <a>click</a> here.</small></span>-->
-                                                        </div>
-                                                    </div>
-                                                    <!--
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label for="userpassword" class="form-label">Password</label>
-                                                            <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
-                                                            <span class="form-text text-muted"><small>If you want to change password please <a href="javascript: void(0);">click</a> here.</small></span>
-                                                        </div>
-                                                    </div> end col -->
-                                                </div> <!-- end row -->
-                                                <div class="text-end">
-                                                    <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Salvar</button>
                                                 </div>
-                                            </form>
-                                        </div>
-                                        <!-- end settings content-->
-                                    </div> <!-- end tab-content -->
-                                </div> <!-- end card body -->
-                            </div> <!-- end card -->
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="lastname" class="form-label">Sobrenome</label>
+                                                        <input type="text" class="form-control" placeholder="Digite seu sobrenome">
+                                                    </div>
+                                                </div> <!-- end col -->
+                                            </div> <!-- end row -->
 
-                        </div> <!-- end col -->
-                    </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="userbio" class="form-label">Bio :</label>
+                                                        <textarea class="form-control" id="userbio" rows="4" placeholder="Escreva algo..."></textarea>
+                                                    </div>
+                                                </div> <!-- end col -->
+                                            </div> <!-- end row -->
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="useremail" class="form-label">Email:</label>
+                                                        <input type="email" class="form-control" disabled placeholder="@item.Email">
+                                                        <!-- <span class="form-text text-muted"><small>If you want to change email please <a>click</a> here.</small></span>-->
+                                                    </div>
+                                                </div>
+                                                <!--
+                                                <div class="col-md-6">
+                                                <div class="mb-3">
+                                                <label for="userpassword" class="form-label">Password</label>
+                                                <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
+                                                <span class="form-text text-muted"><small>If you want to change password please <a href="javascript: void(0);">click</a> here.</small></span>
+                                                </div>
+                                                </div> end col -->
+                                            </div> <!-- end row -->
+                                            <div class="text-end">
+                                                <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Salvar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- end settings content-->
+                                </div> <!-- end tab-content -->
+                            </div> <!-- end card body -->
+                        </div> <!-- end card -->
+
+                    </div> <!-- end col -->
+                </div>
             }
             <!-- end row-->
         </div>

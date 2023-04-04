@@ -23,6 +23,9 @@ namespace AnimesCWebMVC.Models
         
         public DateTime BirthOfDay { get; set; }
 
+        public string? UserName { get; set; }
+        public string? Email { get; set; }
+
         [StringLength(100, ErrorMessage = "O {0} deve ter pelo menos {2} caracteres.", MinimumLength = 6)]
         public string? Bio { get; set; }
         public string? Location { get; set; }
